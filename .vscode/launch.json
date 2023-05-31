@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-StudystarApplication<studystar>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.curriculum.studystar.StudystarApplication",
+            "projectName": "studystar",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
