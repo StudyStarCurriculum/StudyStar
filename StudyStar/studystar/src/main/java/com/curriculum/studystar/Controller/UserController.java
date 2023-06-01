@@ -21,7 +21,7 @@ public class UserController {
         LoginResponse resp = new LoginResponse();
 
         if(!req.ParamCheck()){
-            resp.setStaus(Status.ParamInvalid);
+            resp.setStatus(Status.ParamInvalid);
         }else{
             resp = userServeice.Login(req);
         }

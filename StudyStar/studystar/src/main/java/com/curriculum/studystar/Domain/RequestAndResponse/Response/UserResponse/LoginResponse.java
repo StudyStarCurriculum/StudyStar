@@ -6,5 +6,5 @@ import lombok.Data;
 
 @Data
 public class LoginResponse {
-    Status staus;
+    Status status;
 }

@@ -1,8 +1,8 @@
 package com.curriculum.studystar.Service;
 
-import com.curriculum.studystar.Domain.RequestAndResponse.Request.testRequest;
-import com.curriculum.studystar.Domain.RequestAndResponse.Response.signInResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.LoginRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.LoginResponse;
 
-public interface userService {
-    public signInResponse userSignIn(testRequest test);
+public interface UserService {
+    public LoginResponse Login(LoginRequest req);
 }

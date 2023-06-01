@@ -1,6 +1,8 @@
 package com.curriculum.studystar.Domain.Entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,9 +16,17 @@ import lombok.ToString;
 @ToString
 @Entity
 @Table(name = "user")
-public class user {
+public class User {
     @Id
-    private Integer id;
-    private String username;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer userId;
+    private String userName;
     private String password;
+    private Integer userLevel;
+    private String realName;
+    private Integer sex;
+    private Integer age;
+    private Integer role;
+    private String phone;
+    private String userImagePath;
 }

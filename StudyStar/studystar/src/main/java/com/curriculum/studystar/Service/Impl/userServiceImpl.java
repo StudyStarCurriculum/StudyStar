@@ -3,35 +3,34 @@ package com.curriculum.studystar.Service.Impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.curriculum.studystar.Domain.Entity.user;
-import com.curriculum.studystar.Domain.RequestAndResponse.Request.testRequest;
-import com.curriculum.studystar.Domain.RequestAndResponse.Response.signInResponse;
-import com.curriculum.studystar.Mapper.userMapper;
-import com.curriculum.studystar.Service.userService;
+import com.curriculum.studystar.Config.Status;
+import com.curriculum.studystar.Domain.Entity.User;
+import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.LoginRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.LoginResponse;
+import com.curriculum.studystar.Mapper.UserMapper;
+import com.curriculum.studystar.Service.UserService;
 
 @Service
-public class userServiceImpl implements userService{
-
+public class UserServiceImpl implements UserService{
     @Autowired
-    userMapper usermp;
+    UserMapper userMapper;
 
     @Override
-    public signInResponse userSignIn(testRequest test) {
-       String username=test.getUsername();
-       String pass=test.getPassword();
-       signInResponse response=new signInResponse();
+    public LoginResponse Login(LoginRequest req) {
+        LoginResponse resp = new LoginResponse();
+        String username = req.getUsername();
+        String password = req.getPassword();
 
-       user testuser=usermp.getUserByusername(username);
-       if(testuser==null){
-            response.setResult("pass");
-       }
-       else if(testuser.getPassword().equals(pass)){
-            response.setResult("yes");
-       }
-       else if(!testuser.getPassword().equals(pass)){
-        response.setResult("no");
-       }
-       return response;
+        User user = userMapper.FindUserByUserName(username);
+        if(user == null){
+            resp.setStatus(Status.UserNotExisted);
+        }else if(!user.getPassword().equals(password)){
+            resp.setStatus(Status.WrongPassword);
+        }else{
+            resp.setStatus(Status.OK);
+        }
+
+        return resp;
     }
     
 }
