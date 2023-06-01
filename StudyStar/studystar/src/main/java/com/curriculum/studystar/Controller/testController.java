@@ -7,15 +7,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.curriculum.studystar.Domain.Entity.testObject;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.testRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.signInResponse;
 import com.curriculum.studystar.Service.Impl.testServiceImpl;
+import com.curriculum.studystar.Service.Impl.userServiceImpl;
 
 @RestController
 public class testController {
     @Autowired
-    testServiceImpl testserver;
+    userServiceImpl testserver;
     
     @RequestMapping("/hello")
-    public testObject sayHello(@RequestBody testRequest req){
-        return testserver.getText(req.getId());
+    public signInResponse sayHello(@RequestBody testRequest req){
+        signInResponse res=new signInResponse();
+        if(req.isNUll()){
+            res=testserver.userSignIn(req);
+        }
+        else{
+            res.setResult("数据出错");
+        }
+        return res;
     }
 }

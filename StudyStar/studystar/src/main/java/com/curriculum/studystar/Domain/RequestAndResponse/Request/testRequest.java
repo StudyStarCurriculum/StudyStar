@@ -4,5 +4,15 @@ import lombok.Data;
 
 @Data
 public class testRequest {
-    private Integer id;
+    private String username;
+    private String password;
+
+    public boolean isNUll(){
+        if(username==null||password==null){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 }
