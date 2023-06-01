@@ -22,11 +22,11 @@ public class User {
     private Integer userId;
     private String userName;
     private String password;
-    private Integer userLevel;
     private String realName;
     private Integer sex;
     private Integer age;
+    private Integer userLevel;
+    private String Phone;
     private Integer role;
-    private String phone;
     private String userImagePath;
 }
