@@ -15,6 +15,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
 
+    @Override
     public LoginResponse Login(LoginRequest req){
         LoginResponse resp = new LoginResponse();
         String username = req.getUsername();
@@ -22,11 +23,11 @@ public class UserServiceImpl implements UserService {
 
         User user = userMapper.SelectUserByUserName(username);
         if(user == null){
-            resp.setStaus(Status.UserNotExisted);
+            resp.setStatus(Status.UserNotExisted);
         }else if(!user.getPassword().equals(password)){
-            resp.setStaus(Status.WrongPassword);
+            resp.setStatus(Status.WrongPassword);
         }else{
-            resp.setStaus(Status.OK);
+            resp.setStatus(Status.OK);
         }
 
         return resp;
