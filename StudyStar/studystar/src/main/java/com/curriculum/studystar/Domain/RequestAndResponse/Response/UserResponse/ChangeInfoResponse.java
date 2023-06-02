@@ -6,7 +6,7 @@ import com.curriculum.studystar.Domain.Entity.User;
 import lombok.Data;
 
 @Data
-public class LoginResponse {
+public class ChangeInfoResponse {
     private RespCode respCode;
-    private User curUser;
+    private User updatedUser;
 }

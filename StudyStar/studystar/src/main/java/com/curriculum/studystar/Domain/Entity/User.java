@@ -1,5 +1,6 @@
 package com.curriculum.studystar.Domain.Entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,14 +20,33 @@ import lombok.ToString;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false, name = "userId")
     private Integer userId;
+
+    @Column(nullable = false, name = "userName")
     private String userName;
+
+    @Column(nullable = false, name = "password")
     private String password;
+
+    @Column(name = "realName")
     private String realName;
+
+    @Column(name = "sex")
     private Integer sex;
+
+    @Column(name = "age")
     private Integer age;
+
+    @Column(name = "userLevel")
     private Integer userLevel;
-    private String Phone;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @Column(nullable = false, name = "role")
     private Integer role;
+
+    @Column(name = "userImagePath")
     private String userImagePath;
 }
