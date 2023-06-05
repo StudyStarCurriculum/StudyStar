@@ -23,3 +23,15 @@ StudyStar/studystar/target/classes/com/curriculum/studystar/Service/Impl/Student
 StudyStar/studystar/target/classes/com/curriculum/studystar/Service/Impl/TeacherServiceImpl/README.md
 StudyStar/studystar/target/classes/com/curriculum/studystar/Service/StudentService/README.md
 StudyStar/studystar/target/classes/com/curriculum/studystar/Service/TeacherService/README.MD
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Answer.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Correction.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Course.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/CourseSelection.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Log.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Message.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Question.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/Task.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskQuestion.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskQuestionSet.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskStatus.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TotalScore.class
