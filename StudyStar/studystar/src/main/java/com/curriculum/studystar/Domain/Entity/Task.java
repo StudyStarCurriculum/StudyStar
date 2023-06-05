@@ -2,8 +2,6 @@ package com.curriculum.studystar.Domain.Entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -19,12 +17,11 @@ import lombok.ToString;
 @Table(name = "task")
 public class Task {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, name = "taskId")
-    private Integer taskId;
+    private String taskId;
 
     @Column(nullable = false, name = "courseId")
-    private Integer courseId;
+    private String courseId;
 
     @Column(nullable = false, name = "taskName")
     private String taskName;

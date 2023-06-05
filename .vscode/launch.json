@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "RandomUID",
+            "request": "launch",
+            "mainClass": "com.curriculum.studystar.Utils.RandomUID",
+            "projectName": "studystar"
+        },
+        {
+            "type": "java",
             "name": "Spring Boot-StudystarApplication<studystar>",
             "request": "launch",
             "cwd": "${workspaceFolder}",

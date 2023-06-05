@@ -14,7 +14,7 @@ public interface UserService {
 
     public RegisterResponse Register(RegisterRequest req);
 
-    public ChangeInfoResponse ChangeInfo(ChangeInfoRequest req, Integer userId);
+    public ChangeInfoResponse ChangeInfo(ChangeInfoRequest req, String userId);
 
-    public ChangePasswordResponse ChangePassword(ChangePasswordRequest req, Integer userId);
+    public ChangePasswordResponse ChangePassword(ChangePasswordRequest req, String userId);
 }

@@ -15,6 +15,7 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.RegisterResponse;
 import com.curriculum.studystar.Mapper.UserMapper;
 import com.curriculum.studystar.Service.UserService;
+import com.curriculum.studystar.Utils.RandomUID;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -54,7 +55,7 @@ public class UserServiceImpl implements UserService {
         if(user != null){
             resp.setRespCode(RespCode.UserHasExisted);
         }else{
-            userMapper.InsertUser(username, password, role);
+            userMapper.InsertUser(RandomUID.getRandomUID(), username, password, role);
             resp.setRespCode(RespCode.OK);
         }
 
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ChangeInfoResponse ChangeInfo(ChangeInfoRequest req, Integer userId) {
+    public ChangeInfoResponse ChangeInfo(ChangeInfoRequest req, String userId) {
         ChangeInfoResponse resp = new ChangeInfoResponse();
         String realName = req.getRealName();
         Integer userLevel = req.getUserLevel();
@@ -79,7 +80,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public ChangePasswordResponse ChangePassword(ChangePasswordRequest req, Integer userId) {
+    public ChangePasswordResponse ChangePassword(ChangePasswordRequest req, String userId) {
         ChangePasswordResponse resp = new ChangePasswordResponse();
         User curUser = userMapper.SelectUserByUserId(userId);
 

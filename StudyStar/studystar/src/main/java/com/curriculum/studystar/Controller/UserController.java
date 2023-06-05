@@ -75,7 +75,7 @@ public class UserController {
     public ChangeInfoResponse ChangeInfo(@RequestBody ChangeInfoRequest req){
         ChangeInfoResponse resp = new ChangeInfoResponse();
         User curUser = (User)session.getAttribute("user");
-        Integer userId = curUser.getUserId();
+        String userId = curUser.getUserId();
 
         resp = userServeice.ChangeInfo(req, userId);
 
@@ -101,7 +101,7 @@ public class UserController {
     public ChangePasswordResponse ChangePassword(@RequestBody ChangePasswordRequest req){
         ChangePasswordResponse resp = new ChangePasswordResponse();
         User curUser = (User)session.getAttribute("user");
-        Integer userId = curUser.getUserId();
+        String userId = curUser.getUserId();
 
         if(!req.ParamCheck()){
             resp.setRespCode(RespCode.ParamInvalid);
