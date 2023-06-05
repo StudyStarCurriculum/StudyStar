@@ -35,3 +35,5 @@ StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskQu
 StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskQuestionSet.class
 StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskStatus.class
 StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TotalScore.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/RequestAndResponse/Request/UserRequest/LoginRequest.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Service/Impl/UserServiceImpl.class

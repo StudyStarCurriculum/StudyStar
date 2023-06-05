@@ -20,7 +20,7 @@ import lombok.ToString;
 public class TaskStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false, name = "taskId")
+    @Column(nullable = false, name = "taskStatusId")
     private Integer taskStatusId;
 
     @Column(nullable = false, name = "studentId")

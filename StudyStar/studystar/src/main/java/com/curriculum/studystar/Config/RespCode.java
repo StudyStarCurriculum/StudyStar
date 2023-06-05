@@ -5,6 +5,7 @@ public enum RespCode {
     ParamInvalid, // 参数不合法
     UserNotExisted, // 登录时用户不存在
     WrongPassword, // 密码错误
-    UserHasExisted, //注册时用户已存在
-    LoginRequeried, //未登录
+    UserHasExisted, // 注册时用户已存在
+    LoginRequeried, // 未登录
+    WrongRole, // 登录身份错误
 }

@@ -26,12 +26,15 @@ public class UserServiceImpl implements UserService {
         LoginResponse resp = new LoginResponse();
         String username = req.getUsername();
         String password = req.getPassword();
+        Integer role = req.getRole();
 
         User user = userMapper.SelectUserByUserName(username);
         if(user == null){
             resp.setRespCode(RespCode.UserNotExisted);
         }else if(!user.getPassword().equals(password)){
             resp.setRespCode(RespCode.WrongPassword);
+        }else if(user.getRole() != role){
+            resp.setRespCode(RespCode.WrongRole);
         }else{
             resp.setRespCode(RespCode.OK);
             resp.setCurUser(user);

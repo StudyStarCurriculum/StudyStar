@@ -6,9 +6,10 @@ import lombok.Data;
 public class LoginRequest {
     private String username;
     private String password;
+    private Integer role;
 
     public boolean ParamCheck() {
-        if (username == null || password == null) {
+        if (username == null || password == null || role == null) {
             return false;
         }
         return true;

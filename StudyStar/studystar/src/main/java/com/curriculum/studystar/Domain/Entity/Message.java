@@ -38,6 +38,6 @@ public class Message {
     @Column(name = "sendTime")
     private String sendTime;
 
-    @Column(nullable = false, name = "read")
-    private Integer read;
+    @Column(nullable = false, name = "isRead")
+    private Integer isRead;
 }
