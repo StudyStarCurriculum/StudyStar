@@ -37,3 +37,11 @@ StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TaskSt
 StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/Entity/TotalScore.class
 StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/RequestAndResponse/Request/UserRequest/LoginRequest.class
 StudyStar/studystar/target/classes/com/curriculum/studystar/Service/Impl/UserServiceImpl.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Controller/UserController.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Controller/Student/DashboardController.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/RequestAndResponse/Response/Student/GetSubjectResponse.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Domain/RequestAndResponse/Response/UserResponse/GetLogResponse.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Mapper/LogMapper.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Service/UserService.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Service/Impl/UserServiceImpl.class
+StudyStar/studystar/target/classes/com/curriculum/studystar/Utils/CurrentTimeUtil.class

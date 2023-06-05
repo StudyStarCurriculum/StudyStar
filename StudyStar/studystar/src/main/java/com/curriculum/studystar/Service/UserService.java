@@ -6,6 +6,7 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.Lo
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.RegisterRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangeInfoResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangePasswordResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.GetLogResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.LoginResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.RegisterResponse;
 
@@ -17,4 +18,6 @@ public interface UserService {
     public ChangeInfoResponse ChangeInfo(ChangeInfoRequest req, String userId);
 
     public ChangePasswordResponse ChangePassword(ChangePasswordRequest req, String userId);
+
+    public GetLogResponse GetLog(String userId);
 }

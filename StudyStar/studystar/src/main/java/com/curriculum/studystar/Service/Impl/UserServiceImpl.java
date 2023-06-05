@@ -1,9 +1,12 @@
 package com.curriculum.studystar.Service.Impl;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curriculum.studystar.Config.RespCode;
+import com.curriculum.studystar.Domain.Entity.Log;
 import com.curriculum.studystar.Domain.Entity.User;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.ChangeInfoRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.ChangePasswordRequest;
@@ -11,16 +14,21 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.Lo
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.RegisterRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangeInfoResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangePasswordResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.GetLogResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.LoginResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.RegisterResponse;
+import com.curriculum.studystar.Mapper.LogMapper;
 import com.curriculum.studystar.Mapper.UserMapper;
 import com.curriculum.studystar.Service.UserService;
+import com.curriculum.studystar.Utils.CurrentTimeUtil;
 import com.curriculum.studystar.Utils.RandomUID;
 
 @Service
 public class UserServiceImpl implements UserService {
     @Autowired
     UserMapper userMapper;
+    @Autowired
+    LogMapper logMapper;
 
     @Override
     public LoginResponse Login(LoginRequest req){
@@ -37,6 +45,8 @@ public class UserServiceImpl implements UserService {
         }else if(user.getRole() != role){
             resp.setRespCode(RespCode.WrongRole);
         }else{
+            String logId = RandomUID.getRandomUID();
+            logMapper.InsertLog(logId, user.getUserId(), user.getUserName()+"登录系统", CurrentTimeUtil.getCurrnetTime());
             resp.setRespCode(RespCode.OK);
             resp.setCurUser(user);
         }
@@ -90,6 +100,17 @@ public class UserServiceImpl implements UserService {
             userMapper.UpdatePassword(req.getNewPassword(),userId);
             resp.setRespCode(RespCode.OK);
         }
+        return resp;
+    }
+
+    @Override
+    public GetLogResponse GetLog(String userId) {
+        GetLogResponse resp = new GetLogResponse();
+        ArrayList<Log> logs = logMapper.SelectLogsByUserId(userId);
+
+        resp.setRespCode(RespCode.OK);
+        for(Log item : logs)
+            resp.addData(item);
 
         return resp;
     }

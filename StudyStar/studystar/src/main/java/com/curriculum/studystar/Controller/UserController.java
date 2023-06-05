@@ -14,6 +14,7 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.Lo
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.UserRequest.RegisterRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangeInfoResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.ChangePasswordResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.GetLogResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.LoginResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.RegisterResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.UserResponse.WhoAmIResponse;
@@ -108,6 +109,17 @@ public class UserController {
         }else{
             resp = userServeice.ChangePassword(req, userId);
         }
+
+        return resp;
+    }
+
+    @RequestMapping("/log")
+    public GetLogResponse GetLog(){
+        GetLogResponse resp = new GetLogResponse();
+        User curUser = (User)session.getAttribute("user");
+        String userId = curUser.getUserId();
+
+        resp = userServeice.GetLog(userId);
 
         return resp;
     }
