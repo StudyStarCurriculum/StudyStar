@@ -57,7 +57,7 @@ public class UserController {
         return resp;
     }
 
-    @RequestMapping("WhoAmI")
+    @RequestMapping("/current")
     public WhoAmIResponse WhoAmI() {
         WhoAmIResponse resp = new WhoAmIResponse();
         User user = (User) session.getAttribute("user");

@@ -23,8 +23,8 @@ public class Answer {
     @Column(name = "userId")
     private String userId;
 
-    @Column(name = "taskQuestionId")
-    private String taskQuestionId;
+    @Column(name = "questionId")
+    private String questionId;
 
     @Column(name = "myAnswer")
     private String myAnswer;
@@ -32,6 +32,7 @@ public class Answer {
     @Column(name = "myScore")
     private Integer myScore;
 
+    // 0错 1对
     @Column(name = "state")
     private Integer state;
 

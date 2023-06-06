@@ -26,6 +26,13 @@ public class TaskStatus {
     @Column(nullable = false, name = "taskId")
     private String taskId;
 
+    @Column(name = "submitTime")
+    private String submitTime;
+
+    @Column(name = "totalScore")
+    private Integer totalScore;
+
+    // 0:未完成  1:已完成未批改  3:已批改
     @Column(nullable = false, name = "status")
     private Integer status;
 }

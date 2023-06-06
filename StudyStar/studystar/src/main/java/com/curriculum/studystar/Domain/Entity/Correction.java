@@ -25,4 +25,7 @@ public class Correction {
 
     @Column(name = "taskQuestionId")
     private String taskQuestionId;
+
+    @Column(name = "wrongAnswer")
+    private String wrongAnswer;
 }

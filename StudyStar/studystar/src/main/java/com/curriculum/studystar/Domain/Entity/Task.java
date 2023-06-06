@@ -20,6 +20,9 @@ public class Task {
     @Column(nullable = false, name = "taskId")
     private String taskId;
 
+    @Column(name = "score")
+    private Integer score;
+
     @Column(nullable = false, name = "courseId")
     private String courseId;
 

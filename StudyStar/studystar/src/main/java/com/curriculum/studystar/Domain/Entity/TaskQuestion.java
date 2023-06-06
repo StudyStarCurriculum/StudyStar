@@ -26,6 +26,4 @@ public class TaskQuestion {
     @Column(nullable = false, name = "questionId")
     private String questionId;
 
-    @Column(name = "score")
-    private Integer score;
 }
