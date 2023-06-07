@@ -16,5 +16,5 @@ public interface TaskMapper extends BaseMapper<Task>{
     public String SelectCourseIdByTaskId(String taskId);
 
     @Select("select * from task where taskId = #{taskId}")
-    public Task SelectTaksByTaskId(String taskId);
+    public Task SelectTaskByTaskId(String taskId);
 }

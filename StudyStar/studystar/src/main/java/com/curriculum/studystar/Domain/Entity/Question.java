@@ -21,7 +21,7 @@ public class Question {
     private String questionId;
 
     @Column(nullable = false,name = "questionType")
-    private Integer questType;
+    private Integer questionType;
 
     @Column(nullable = false, name = "courseId")
     private String courseId;
@@ -42,7 +42,7 @@ public class Question {
     private String analysis;
 
     @Column(name = "options")
-    private String[] options;
+    private String options;
 
     @Column(name = "questionFilePath")
     private String questionFilePath;

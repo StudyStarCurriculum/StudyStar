@@ -20,11 +20,14 @@ public class Correction {
     @Column(nullable = false, name = "correctionId")
     private String correctionId;
 
+    @Column(name = "createTime")
+    private String createTime;
+
     @Column(name = "userId")
     private String userId;
 
-    @Column(name = "taskQuestionId")
-    private String taskQuestionId;
+    @Column(name = "questionId")
+    private String questionId;
 
     @Column(name = "wrongAnswer")
     private String wrongAnswer;

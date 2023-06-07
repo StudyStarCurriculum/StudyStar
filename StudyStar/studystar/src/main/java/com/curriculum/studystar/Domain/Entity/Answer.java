@@ -23,6 +23,9 @@ public class Answer {
     @Column(name = "userId")
     private String userId;
 
+    @Column(name = "taskId")
+    private String taskId;
+
     @Column(name = "questionId")
     private String questionId;
 
