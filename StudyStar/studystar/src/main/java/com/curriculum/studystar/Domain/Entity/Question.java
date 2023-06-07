@@ -29,8 +29,8 @@ public class Question {
     @Column(nullable = false, name = "score")
     private Integer score;
 
-    @Column(name = "difficuty")
-    private Integer difficuty;
+    @Column(name = "difficult")
+    private Integer difficult;
 
     @Column(name = "description")
     private String description;

@@ -4,7 +4,7 @@ spring:
     datasource:
         url: jdbc:mysql://localhost:3306/studyplatform?charset=utf8mb4&useUnicode=true&serverTimezone=UTC
         username: root
-        password: 714825936QY
+        password: wjz200109281113
         driver-class-name: com.mysql.cj.jdbc.Driver
     jpa:
         properties:
