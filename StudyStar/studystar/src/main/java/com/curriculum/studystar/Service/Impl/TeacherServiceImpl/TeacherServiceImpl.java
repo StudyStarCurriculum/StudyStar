@@ -331,7 +331,7 @@ public class TeacherServiceImpl implements TeacherService {
         MessageSendResponse messresp = new MessageSendResponse();
         ArrayList<String> tostudents = new ArrayList<>();
         tostudents = req.getReceiveUserIds();
-        
+        User u = new User();
         //发送对象为空
         if(tostudents.isEmpty()){
             messresp.setCode(0);
@@ -342,7 +342,8 @@ public class TeacherServiceImpl implements TeacherService {
                 String messgaeid = RandomUID.getRandomUID();
                 String content = req.getContent();
                 int read = 0;
-                String receiver = m;
+                u=userMapper.SelectUserByUserName(m);
+                String receiver = u.getUserId();
                 String sender = teacherId;
                 String title = req.getTitile();
                 String time = CurrentTimeUtil.getCurrnetTime();
