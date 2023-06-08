@@ -356,9 +356,9 @@ public class TeacherServiceImpl implements TeacherService {
         MessageSendResponse messresp = new MessageSendResponse();
         ArrayList<String> tostudents = new ArrayList<>();
         tostudents = req.getReceiveUserIds();
-
-        // 发送对象为空
-        if (tostudents.isEmpty()) {
+        User u = new User();
+        //发送对象为空
+        if(tostudents.isEmpty()){
             messresp.setCode(0);
         }
         // 发送对象不为空
@@ -367,7 +367,8 @@ public class TeacherServiceImpl implements TeacherService {
                 String messgaeid = RandomUID.getRandomUID();
                 String content = req.getContent();
                 int read = 0;
-                String receiver = m;
+                u=userMapper.SelectUserByUserName(m);
+                String receiver = u.getUserId();
                 String sender = teacherId;
                 String title = req.getTitile();
                 String time = CurrentTimeUtil.getCurrnetTime();
@@ -386,67 +387,62 @@ public class TeacherServiceImpl implements TeacherService {
         // 为空新建题目
         if (req.getId() == null) {
             String newid = RandomUID.getRandomUID();
-            String answer = null;
-            String options = null;
+            String answer = "";
+            String options = "";
             String chapter = null;
             String questionFile = null;
-            // 4、2-array，5、3、1-correct
-            // 答案
-            if (req.getQuestionType() == 4 || req.getQuestionType() == 2) {
-                int count = 0;
-                for (String s : req.getCorrectArray()) {
-                    count++;
-                    if (count > 1 && count <= req.getItems().size()) {
-                        answer = answer + "$" + s;
-                    } else {
-                        answer = answer + s;
-                    }
+            //全部存到list中
+            //4、2-array，5、3、1-correct
+            //答案
+            int count = 0;
+            for(String s : req.getCorrectArray()){
+                count++;
+                if(count>1 && count<=req.getCorrectArray().size()){
+                    answer=answer+"$"+s;
                 }
-            } else {
-                answer = req.getCorrect();
-            }
-            // 选项
-            if (req.getQuestionType() == 1 || req.getQuestionType() == 2 || req.getQuestionType() == 3) {
-                int count = 0;
-                for (questionitem i : req.getItems()) {
-                    count++;
-                    options = options + i.getPrefix() + "$" + i.getContent();
-                    if (count <= req.getItems().size() - 1) {
-                        options = options + "@";
-                    }
+                else{
+                    answer=answer+s;
+                }
+            }    
+            // for(String s : req.getCorrectArray()){
+            //     answer+=s+"$";
+            // }
+            // answer=answer.substring(0, answer.length()-1);    
+            //选项
+            int n = 0;
+            for(questionitem i : req.getItems()){
+                n++;
+                options = options + i.getPrefix()+ "$" + i.getContent();
+                if(n<=req.getItems().size()-1){
+                    options = options + "@";
                 }
             }
-
-            questionMapper.InsertQuestion(newid, req.getAnalyse(), answer, chapter, req.getSubjectId(), req.getTitle(),
-                    req.getDifficult(), options, req.getQuestionType(), questionFile, req.getScore());
+            
+            questionMapper.InsertQuestion(newid, req.getAnalyse(), answer, chapter, req.getSubjectId(), req.getTitle(), req.getDifficult(), options, req.getQuestionType(), questionFile, req.getScore());
         }
-        // 不为空则更新题目
-        else {
-            String answer = null;
-            String options = null;
-            // 答案
-            if (req.getQuestionType() == 4 || req.getQuestionType() == 2) {
-                for (String s : req.getCorrectArray()) {
-                    answer = answer + s;
-                }
-            } else {
-                answer = req.getCorrect();
+        //不为空则更新题目
+        else{
+            String answer="";
+            String options="";
+            //答案
+            for(String s : req.getCorrectArray()){
+                answer+=s+"$";
             }
-            // 选项
-            if (req.getQuestionType() == 1 || req.getQuestionType() == 2 || req.getQuestionType() == 3) {
-                int count = 0;
-                for (questionitem i : req.getItems()) {
-                    count++;
-                    options = options + i.getPrefix() + "$" + i.getContent();
-                    if (count <= req.getItems().size() - 1) {
-                        options = options + "@";
-                    }
+            answer=answer.substring(0, answer.length()-1);
+            //选项
+            int n = 0;
+            for(questionitem i : req.getItems()){
+                n++;
+                options = options + i.getPrefix()+ "$" + i.getContent();
+                if(n<=req.getItems().size()-1){
+                    options = options + "@";
                 }
             }
 
             questionMapper.UpdataQuestion(req.getAnalyse(), answer, req.getTitle(), req.getDifficult(), options,
                     req.getQuestionType(), req.getScore(), req.getId());
         }
+
 
     }
 
@@ -646,19 +642,3 @@ public class TeacherServiceImpl implements TeacherService {
         taskStatusMapper.UpdateTaskStatus(taskStatus.getSubmitTime(), totalScore, 2, userId, taskId);
     }
 }
-/*
- * @Autowired
- * UserMapper userMapper;
- * 
- * @Autowired
- * LogMapper logMapper;
- * 
- * @Override
- * public LoginResponse Login(LoginRequest req){
- * LoginResponse resp = new LoginResponse();
- * String username = req.getUsername();
- * String password = req.getPassword();
- * Integer role = req.getRole();
- * 
- * User user = userMapper.SelectUserByUserName(username);
- */
