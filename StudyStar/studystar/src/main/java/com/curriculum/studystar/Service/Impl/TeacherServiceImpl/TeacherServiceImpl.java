@@ -361,63 +361,55 @@ public class TeacherServiceImpl implements TeacherService {
         //为空新建题目
         if(req.getId()==null){
             String newid = RandomUID.getRandomUID();
-            String answer=null;
-            String options=null;
+            String answer = "";
+            String options = "";
             String chapter = null;
             String questionFile = null;
+            //全部存到list中
             //4、2-array，5、3、1-correct
             //答案
-            if(req.getQuestionType()==4 ||req.getQuestionType()==2){
-                int count = 0;
-                for(String s : req.getCorrectArray()){
-                    count++;
-                    if(count>1&&count<=req.getItems().size()){
-                        answer = answer +"$"+ s;
-                    }
-                    else{
-                        answer = answer + s;
-                    }
+            int count = 0;
+            for(String s : req.getCorrectArray()){
+                count++;
+                if(count>1 && count<=req.getCorrectArray().size()){
+                    answer=answer+"$"+s;
                 }
-            }
-            else{
-                answer = req.getCorrect();
-            }
+                else{
+                    answer=answer+s;
+                }
+            }    
+            // for(String s : req.getCorrectArray()){
+            //     answer+=s+"$";
+            // }
+            // answer=answer.substring(0, answer.length()-1);    
             //选项
-            if(req.getQuestionType()==1 ||req.getQuestionType()==2||req.getQuestionType()==3){
-                int count = 0;
-                for(questionitem i : req.getItems()){
-                    count++;
-                    options = options + i.getPrefix()+ "$" + i.getContent();
-                    if(count<=req.getItems().size()-1){
-                        options = options + "@";
-                    }
+            int n = 0;
+            for(questionitem i : req.getItems()){
+                n++;
+                options = options + i.getPrefix()+ "$" + i.getContent();
+                if(n<=req.getItems().size()-1){
+                    options = options + "@";
                 }
             }
-
+            
             questionMapper.InsertQuestion(newid, req.getAnalyse(), answer, chapter, req.getSubjectId(), req.getTitle(), req.getDifficult(), options, req.getQuestionType(), questionFile, req.getScore());
         }
         //不为空则更新题目
         else{
-            String answer=null;
-            String options=null;
+            String answer="";
+            String options="";
             //答案
-            if(req.getQuestionType()==4 ||req.getQuestionType()==2){
-                for(String s : req.getCorrectArray()){
-                    answer = answer + s;
-                }
+            for(String s : req.getCorrectArray()){
+                answer+=s+"$";
             }
-            else{
-                answer = req.getCorrect();
-            }
+            answer=answer.substring(0, answer.length()-1);
             //选项
-            if(req.getQuestionType()==1 ||req.getQuestionType()==2||req.getQuestionType()==3){
-                int count = 0;
-                for(questionitem i : req.getItems()){
-                    count++;
-                    options = options + i.getPrefix()+ "$" + i.getContent();
-                    if(count<=req.getItems().size()-1){
-                        options = options + "@";
-                    }
+            int n = 0;
+            for(questionitem i : req.getItems()){
+                n++;
+                options = options + i.getPrefix()+ "$" + i.getContent();
+                if(n<=req.getItems().size()-1){
+                    options = options + "@";
                 }
             }
 
@@ -460,18 +452,3 @@ public class TeacherServiceImpl implements TeacherService {
         return resp;
     }
 }
-/*
- * @Autowired
-    UserMapper userMapper;
-    @Autowired
-    LogMapper logMapper;
-
-    @Override
-    public LoginResponse Login(LoginRequest req){
-        LoginResponse resp = new LoginResponse();
-        String username = req.getUsername();
-        String password = req.getPassword();
-        Integer role = req.getRole();
-
-        User user = userMapper.SelectUserByUserName(username);
- */
