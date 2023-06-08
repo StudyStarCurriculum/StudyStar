@@ -11,6 +11,10 @@ public interface TaskMapper extends BaseMapper<Task>{
     @Select("select * from task where courseId = #{courseId}")
     public ArrayList<Task> SelectTaskByCourseId(String courseId);
 
+    //教师端
+    @Select("select courseId from task where taskId = #{taskId}")
+    public String SelectCourseIdByTaskId(String taskId);
+
     @Select("select * from task where taskId = #{taskId}")
     public Task SelectTaskByTaskId(String taskId);
 }
