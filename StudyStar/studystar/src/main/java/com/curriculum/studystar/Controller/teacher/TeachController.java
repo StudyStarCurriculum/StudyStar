@@ -1,6 +1,7 @@
 package com.curriculum.studystar.Controller.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +14,6 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.Cours
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.StudentListResponse;
 import com.curriculum.studystar.Service.Impl.TeacherServiceImpl.TeacherServiceImpl;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -45,10 +45,9 @@ public class TeachController {
     }
 
     //课程详情
-    @RequestMapping("/education/subject/select")
-    public CourseDetailsResponse coursedetails(HttpServletRequest req){
+    @RequestMapping("/education/subject/select/{id}")
+    public CourseDetailsResponse coursedetails(@PathVariable String id){
         CourseDetailsResponse resp = new CourseDetailsResponse();
-        String id = req.getParameter("id");
 
         resp = teacherService.CourseDetails(id);
         return resp;

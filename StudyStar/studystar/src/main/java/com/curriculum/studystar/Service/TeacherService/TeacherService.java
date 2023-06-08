@@ -2,12 +2,16 @@ package com.curriculum.studystar.Service.TeacherService;
 
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.AnswerListRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.CourseEditRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.EditExamRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.MessageSendRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.QuestionEditRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.StudentListRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.SubmitCorrectionRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.AnswerShowResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.AnswerListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseListResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.GetTaskDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.MessageSendResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.QuestionDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.StudentListResponse;
@@ -37,4 +41,16 @@ public interface TeacherService {
 
     //题目详情
     public QuestionDetailsResponse QuestionDetail(String id);
+
+    //编辑试卷
+    public void EditExam(EditExamRequest req);
+
+    //试卷详情
+    public GetTaskDetailsResponse GetTaskDetail(String taskId);
+
+    //查看答卷
+    public AnswerShowResponse AnswerShow(String taskStatusId);
+
+    //提交批改
+    public void SubmitCorrection(SubmitCorrectionRequest req);
 }

@@ -9,7 +9,7 @@ public class MyAnswerShowResp {
     private String doTime;
     private Integer score;
     private ArrayList<MyAnswerResp> answerItems = new ArrayList<MyAnswerResp>();
-    public void addData(boolean doRight,Integer itemOrder,String[] contentArray){
+    public void addData(Integer doRight,Integer itemOrder,String[] contentArray){
         answerItems.add(new MyAnswerResp(doRight, itemOrder, contentArray));
     }
 }

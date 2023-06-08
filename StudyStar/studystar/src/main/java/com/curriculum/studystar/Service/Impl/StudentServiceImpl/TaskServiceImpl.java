@@ -139,7 +139,7 @@ public class TaskServiceImpl implements TaskService {
             String[] answerArray = item.getContentArray();
             String answer = new String();
             Integer myScore = 0;
-            Integer state = -1;
+            Integer state = null;
             Question question = questionMapper.SelectQuestionByQuestionId(questionId);
 
             for (String s : answerArray) {
@@ -167,7 +167,7 @@ public class TaskServiceImpl implements TaskService {
         if (isDone) {
             tsMapper.UpdateTaskStatus(CurrentTimeUtil.getCurrnetTime(), totalScore, 2, userId, taskId);
         } else {
-            tsMapper.UpdateTaskStatus(CurrentTimeUtil.getCurrnetTime(), 0, 1, userId, taskId);
+            tsMapper.UpdateTaskStatus(CurrentTimeUtil.getCurrnetTime(), totalScore, 1, userId, taskId);
         }
 
         return RespCode.OK;
@@ -203,9 +203,7 @@ public class TaskServiceImpl implements TaskService {
                 ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
 
                 Answer myAnswer = answerMapper.SelectAnswerById(userId, taskId, question.getQuestionId());
-                boolean doRight = false;
-                if(myAnswer.getState() == 0) doRight = false;
-                if(myAnswer.getState() == 1) doRight = true;
+                Integer doRight = myAnswer.getState();
                 String[] contentArray = myAnswer.getMyAnswer().split("\\$");
                 answerResp.addData(doRight, questionOrder,contentArray);
 

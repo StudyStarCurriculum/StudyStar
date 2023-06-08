@@ -3,6 +3,7 @@ package com.curriculum.studystar.Controller.Student;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,6 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetTe
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.StartTestResponse;
 import com.curriculum.studystar.Service.Impl.StudentServiceImpl.TaskServiceImpl;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -51,12 +51,11 @@ public class TaskController {
         return resp;
     }
 
-    @RequestMapping("/exam/select")
-    public StartTestResponse StartTest(HttpServletRequest req){
+    @RequestMapping("/exam/select/{id}")
+    public StartTestResponse StartTest(@PathVariable String id){
         StartTestResponse resp = new StartTestResponse();
-        String taskId = req.getParameter("id");
 
-        resp = taskService.StartTest(taskId);
+        resp = taskService.StartTest(id);
 
         return resp;
     }
@@ -70,14 +69,13 @@ public class TaskController {
         return taskService.SubmitTest(items, userId, taskId);
     }
 
-    @RequestMapping("/exampaper/answer/read")
-    public AnswerShowResponse AnswerShow(HttpServletRequest req){
-        String taskId = req.getParameter("id");
+    @RequestMapping("/exampaper/answer/read/{id}")
+    public AnswerShowResponse AnswerShow(@PathVariable String id){
         AnswerShowResponse resp = new AnswerShowResponse();
         User curUser = (User)session.getAttribute("user");
         String userId = curUser.getUserId();
 
-        resp = taskService.AnswerShow(taskId, userId);
+        resp = taskService.AnswerShow(id, userId);
 
         return resp;
     }

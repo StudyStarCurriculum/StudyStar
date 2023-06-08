@@ -1,22 +1,22 @@
 package com.curriculum.studystar.Controller.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.QuestionEditRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.QuestionDetailsResponse;
-import com.curriculum.studystar.Service.TeacherService.TeacherService;
+import com.curriculum.studystar.Service.Impl.TeacherServiceImpl.TeacherServiceImpl;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/api/admin/question")
 public class QuestionController {
     @Autowired
-    TeacherService teacherService;
+    TeacherServiceImpl teacherService;
     @Autowired
     HttpSession session;
 
@@ -25,10 +25,9 @@ public class QuestionController {
         teacherService.EditQuestion(req);
     }
 
-    @RequestMapping("/select")
-    public QuestionDetailsResponse questiondetails(HttpServletRequest req){
+    @RequestMapping("/select/{id}")
+    public QuestionDetailsResponse questiondetails(@PathVariable String id){
         QuestionDetailsResponse resp = new QuestionDetailsResponse();
-        String id = req.getParameter("id");
 
         resp = teacherService.QuestionDetail(id);
         return resp;

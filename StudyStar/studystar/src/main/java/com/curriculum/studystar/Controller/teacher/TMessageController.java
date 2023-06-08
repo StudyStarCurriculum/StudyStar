@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.curriculum.studystar.Domain.Entity.User;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Teacher.MessageSendRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.MessageSendResponse;
-import com.curriculum.studystar.Service.TeacherService.TeacherService;
+import com.curriculum.studystar.Service.Impl.TeacherServiceImpl.TeacherServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -16,7 +16,7 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping()
 public class TMessageController {
     @Autowired
-    TeacherService teacherService;
+    TeacherServiceImpl teacherService;
     @Autowired
     HttpSession session;
 
