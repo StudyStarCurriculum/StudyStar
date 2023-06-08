@@ -14,4 +14,7 @@ public interface CorrectionMapper extends BaseMapper<Correction> {
     
     @Select("select * from correction where userId = #{userId}")
     public ArrayList<Correction> SelectCorrectionByUserId(String userId); 
+
+    @Select("select * from correction where correctionId = #{correctionId}")
+    public Correction SelectCorrectionByCorrectionId(String correctionId);
 }

@@ -12,6 +12,7 @@ import com.curriculum.studystar.Domain.Entity.User;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.RequestData.AnswerReq;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Student.GetTestListRequest;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.Student.SubmitTestRequest;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.AnswerShowResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetTestListFinishedResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetTestListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.StartTestResponse;
@@ -67,5 +68,17 @@ public class TaskController {
         User curUser = (User)session.getAttribute("user");
         String userId = curUser.getUserId();
         return taskService.SubmitTest(items, userId, taskId);
+    }
+
+    @RequestMapping("/exampaper/answer/read")
+    public AnswerShowResponse AnswerShow(HttpServletRequest req){
+        String taskId = req.getParameter("id");
+        AnswerShowResponse resp = new AnswerShowResponse();
+        User curUser = (User)session.getAttribute("user");
+        String userId = curUser.getUserId();
+
+        resp = taskService.AnswerShow(taskId, userId);
+
+        return resp;
     }
 }

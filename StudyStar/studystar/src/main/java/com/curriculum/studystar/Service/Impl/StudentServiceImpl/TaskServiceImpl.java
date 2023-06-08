@@ -7,15 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curriculum.studystar.Config.RespCode;
+import com.curriculum.studystar.Domain.Entity.Answer;
 import com.curriculum.studystar.Domain.Entity.Question;
 import com.curriculum.studystar.Domain.Entity.Task;
 import com.curriculum.studystar.Domain.Entity.TaskQuestion;
 import com.curriculum.studystar.Domain.Entity.TaskQuestionSet;
 import com.curriculum.studystar.Domain.Entity.TaskStatus;
 import com.curriculum.studystar.Domain.RequestAndResponse.Request.RequestData.AnswerReq;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.ResponseData.AnswerShowResp;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.ResponseData.MyAnswerShowResp;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.ResponseData.QuestionItem;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.ResponseData.QuestionResp;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.ResponseData.QuestionSetResp;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.AnswerShowResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetTestListFinishedResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetTestListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.StartTestResponse;
@@ -139,8 +143,9 @@ public class TaskServiceImpl implements TaskService {
             Question question = questionMapper.SelectQuestionByQuestionId(questionId);
 
             for (String s : answerArray) {
-                answer += s;
+                answer += s + "$";
             }
+            answer = answer.substring(0, answer.length() - 1);
 
             if (question.getQuestionType() < 4) {
                 if (!question.getAnswer().equals(answer)) {
@@ -166,6 +171,60 @@ public class TaskServiceImpl implements TaskService {
         }
 
         return RespCode.OK;
+    }
+
+    @Override
+    public AnswerShowResponse AnswerShow(String taskId, String userId) {
+        AnswerShowResponse fiResp = new AnswerShowResponse();
+        AnswerShowResp response = new AnswerShowResp();
+        StartTestResponse resp = new StartTestResponse();
+        MyAnswerShowResp answerResp = new MyAnswerShowResp();
+        TaskStatus taskStatus = tsMapper.SelectTaskStatusByTaskIdAndUserId(taskId, userId);
+        answerResp.setDoTime("30min");
+        answerResp.setScore(taskStatus.getTotalScore());
+
+        Task task = taskMapper.SelectTaskByTaskId(taskId);
+        resp.setName(task.getTaskName());
+        resp.setSuggestTime("120min");
+        resp.setScore(task.getScore());
+        ArrayList<TaskQuestionSet> sets = tqsMapper.SelectQuestionSetByTaskId(taskId);
+
+        Integer questionOrder = 0;
+        for (TaskQuestionSet set : sets) {
+            QuestionSetResp respSet = new QuestionSetResp();
+            respSet.setName(set.getTitle());
+            ArrayList<TaskQuestion> taskQuestions = tqMapper.SelectTaskQuestionBySetId(set.getTaskQuestionSetId());
+
+            for (TaskQuestion taskQuestion : taskQuestions) {
+                questionOrder++;
+                Question question = questionMapper.SelectQuestionByQuestionId(taskQuestion.getQuestionId());
+                String options = question.getOptions();
+                String[] opts = options.split("@");
+                ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
+
+                Answer myAnswer = answerMapper.SelectAnswerById(userId, taskId, question.getQuestionId());
+                boolean doRight = false;
+                if(myAnswer.getState() == 0) doRight = false;
+                if(myAnswer.getState() == 1) doRight = true;
+                String[] contentArray = myAnswer.getMyAnswer().split("\\$");
+                answerResp.addData(doRight, questionOrder,contentArray);
+
+                for (String option : opts) {
+                    String[] temp = option.split("\\$");
+                    items.add(new QuestionItem(temp[0], temp[1]));
+                }
+
+                QuestionResp respQuestion = new QuestionResp(question.getQuestionId(), question.getQuestionType(),
+                        question.getDescription(), items, questionOrder);
+                respSet.addData(respQuestion);
+            }
+            resp.addData(respSet);
+        }
+
+        response.setAnswer(answerResp);
+        response.setPaper(resp);
+        fiResp.setResponse(response);
+        return fiResp;
     }
 
 }

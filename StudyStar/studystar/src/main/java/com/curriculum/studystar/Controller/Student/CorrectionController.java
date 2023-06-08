@@ -5,9 +5,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.curriculum.studystar.Domain.Entity.User;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetCorrectionDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Student.GetCorrectionResponse;
 import com.curriculum.studystar.Service.Impl.StudentServiceImpl.CorrectionServiceImpl;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
@@ -29,6 +31,13 @@ public class CorrectionController {
         return resp;
     }
 
-    // @RequestMapping("/select")
-    // public 
+    @RequestMapping("/select")
+    public GetCorrectionDetailsResponse GetCorrectionDetails(HttpServletRequest req){
+        String correctionId = req.getParameter("id");
+        GetCorrectionDetailsResponse resp = new GetCorrectionDetailsResponse();
+
+        resp = correctionService.GetCorrectionDetails(correctionId);
+
+        return resp;
+    }
 }

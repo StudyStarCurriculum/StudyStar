@@ -11,7 +11,10 @@ public class QuestionVMResp {
     private String title;
     private ArrayList<QuestionItem> items = new ArrayList<QuestionItem>();
     private String analyze;
-    private ArrayList<String> correctArray = new ArrayList<String>();
+    private String[] correctArray;
     private Integer score;
     private Integer difficult;
+    public void addData(String prefix,String content){
+        items.add(new QuestionItem(prefix, content));
+    }
 }
