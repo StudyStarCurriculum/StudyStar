@@ -2,14 +2,13 @@ package com.curriculum.studystar.Service.Impl.TeacherServiceImpl;
 
 import java.util.ArrayList;
 
-import javax.annotation.Detainted;
-import javax.xml.crypto.Data;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.curriculum.studystar.Domain.Entity.Course;
 import com.curriculum.studystar.Domain.Entity.CourseSelection;
+import com.curriculum.studystar.Domain.Entity.Question;
 import com.curriculum.studystar.Domain.Entity.Task;
 import com.curriculum.studystar.Domain.Entity.TaskStatus;
 import com.curriculum.studystar.Domain.Entity.User;
@@ -23,6 +22,7 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.Answe
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.MessageSendResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.QuestionDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.StudentListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.courseExtra1;
 import com.curriculum.studystar.Mapper.CourseMapper;
@@ -196,7 +196,7 @@ public class TeacherServiceImpl implements TeacherService {
             teachcourse = courseMapper.SelectCourseByTeacherId(teacherId);
 
             if(teachcourse.contains(mycourse)){
-                Task t = taskMapper.SelectTaksByTaskId(taskId);
+                Task t = taskMapper.SelectTaskByTaskId(taskId);
                 taskStatus = taskStatusMapper.SelectTaskStatusByTaskId(taskId);
                 for(TaskStatus ts : taskStatus){
                     count++;
@@ -230,7 +230,7 @@ public class TeacherServiceImpl implements TeacherService {
                 String realTeacher = courseMapper.SelectTeacherByCourseId(courseId);
                 //匹配
                 if(realTeacher.equals(teacherId)){
-                    Task t = taskMapper.SelectTaksByTaskId(taskId);
+                    Task t = taskMapper.SelectTaskByTaskId(taskId);
                     taskStatus = taskStatusMapper.SelectTaskStatusByTaskId(taskId);
                     for(TaskStatus ts : taskStatus){
                         count++;
@@ -368,8 +368,15 @@ public class TeacherServiceImpl implements TeacherService {
             //4、2-array，5、3、1-correct
             //答案
             if(req.getQuestionType()==4 ||req.getQuestionType()==2){
+                int count = 0;
                 for(String s : req.getCorrectArray()){
-                    answer = answer + s;
+                    count++;
+                    if(count>1&&count<=req.getItems().size()){
+                        answer = answer +"$"+ s;
+                    }
+                    else{
+                        answer = answer + s;
+                    }
                 }
             }
             else{
@@ -393,8 +400,64 @@ public class TeacherServiceImpl implements TeacherService {
         else{
             String answer=null;
             String options=null;
-            
+            //答案
+            if(req.getQuestionType()==4 ||req.getQuestionType()==2){
+                for(String s : req.getCorrectArray()){
+                    answer = answer + s;
+                }
+            }
+            else{
+                answer = req.getCorrect();
+            }
+            //选项
+            if(req.getQuestionType()==1 ||req.getQuestionType()==2||req.getQuestionType()==3){
+                int count = 0;
+                for(questionitem i : req.getItems()){
+                    count++;
+                    options = options + i.getPrefix()+ "$" + i.getContent();
+                    if(count<=req.getItems().size()-1){
+                        options = options + "@";
+                    }
+                }
+            }
+
+            questionMapper.UpdataQuestion(req.getAnalyse(), answer, req.getTitle(), req.getDifficult(), options, req.getQuestionType(), req.getScore(),req.getId());
         }
+
+        
+    }
+
+    //题目详情
+    public QuestionDetailsResponse QuestionDetail(String id){
+        QuestionDetailsResponse resp = new QuestionDetailsResponse();
+        Question current = new Question();
+
+        current = questionMapper.SelectQuestionByQuestionId(id);
+        resp.getResponse().setId(current.getQuestionId());
+        resp.getResponse().setQuestionType(current.getQuestionType());
+        resp.getResponse().setSubjectId(current.getCourseId());
+        resp.getResponse().setTitle(current.getDescription());
+        resp.getResponse().setGradeLevel(1);
+        resp.getResponse().setAnalyze(current.getAnalysis());
+        resp.getResponse().setDifficult(current.getDifficult());
+        resp.getResponse().setScore(current.getScore());
+
+        String answerStr = current.getAnswer();
+        String[] answer = answerStr.split("\\$");
+        for(int i=0;i<answer.length;i++){
+            resp.getResponse().addList(answer[i]);
+        }   
+
+        String options = current.getOptions();
+        if(options!=null){
+            String[] items = options.split("@");
+            for(String item : items){
+                String[] questionItem = item.split("\\$");
+                resp.getResponse().addItem(questionItem[0], questionItem[1]);
+            } 
+        }
+           
+        return resp;
     }
 }
 /*

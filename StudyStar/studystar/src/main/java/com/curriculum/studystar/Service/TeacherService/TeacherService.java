@@ -9,6 +9,7 @@ import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.Answe
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.CourseListResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.MessageSendResponse;
+import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.QuestionDetailsResponse;
 import com.curriculum.studystar.Domain.RequestAndResponse.Response.Teacher.StudentListResponse;
 
 
@@ -33,4 +34,7 @@ public interface TeacherService {
 
     //编辑题目
     public void EditQuestion(QuestionEditRequest req);
+
+    //题目详情
+    public QuestionDetailsResponse QuestionDetail(String id);
 }

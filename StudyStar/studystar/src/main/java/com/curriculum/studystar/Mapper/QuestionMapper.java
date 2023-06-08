@@ -2,6 +2,7 @@ package com.curriculum.studystar.Mapper;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.curriculum.studystar.Domain.Entity.Question;
@@ -12,6 +13,9 @@ public interface QuestionMapper extends BaseMapper<Question>{
 
     @Select("select * from question where questionId = #{questionId}")
     public Question SelectQuestionByQuestionId(String questionId);
+
+    @Update("update question set analysis=#{analysis},answer=#{answer},description=#{description},difficult=#{difficult},options=#{options},questionType=#{questionType},score=#{score} where questionId=#{questionId}")
+    public void UpdataQuestion(String analysis,String answer,String description,int difficult,String options,int questionType,int score,String questionId);
 }
 /*
  * @Insert("insert into course_selection (selectionId,studentId,courseId) values (#{selectionId}, #{studentId}, #{courseId})")
